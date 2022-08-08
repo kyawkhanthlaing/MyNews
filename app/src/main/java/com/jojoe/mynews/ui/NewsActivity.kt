@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.jojoe.mynews.MyNewsApp
 import com.jojoe.mynews.R
 import com.jojoe.mynews.databinding.ActivityNewsBinding
 import com.jojoe.mynews.db.ArticleDatabase
@@ -22,8 +23,8 @@ class NewsActivity : AppCompatActivity() {
         binding = ActivityNewsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val  newsRepository= NewsRepository(ArticleDatabase(this))
-        val viewModelFactory=NewsViewModelFactory(newsRepository)
+       val container = (application as MyNewsApp).container
+        val viewModelFactory=NewsViewModelFactory(container.provideRepository())
         viewModel= ViewModelProvider(this,viewModelFactory)[NewsViewModel::class.java]
 
         val navHostFrag = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
