@@ -1,44 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/news_nav_graph"
-    app:startDestination="@id/breakingNewsFragment">
+    app:startDestination="@id/signInFragment">
 
     <fragment
         android:id="@+id/articleFragment"
-        android:name="com.jojoe.mynews.ui.fragments.ArticleFragment"
+        android:name="com.jojoe.mynews.ui.fragments.details.ArticleFragment"
         android:label="Details" >
         <argument
             android:name="article"
             app:argType="com.jojoe.mynews.model.Article" />
     </fragment>
     <fragment
-        android:id="@+id/breakingNewsFragment"
-        android:name="com.jojoe.mynews.ui.fragments.BreakingNewsFragment"
-        android:label="Breaking News" >
-        <action
-            android:id="@+id/action_breakingNewsFragment2_to_articleFragment"
-            app:destination="@id/articleFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-    </fragment>
-    <fragment
-        android:id="@+id/savedNewsFragment"
-        android:name="com.jojoe.mynews.ui.fragments.SavedNewsFragment"
-        android:label="My News" >
-        <action
-            android:id="@+id/action_savedNewsFragment2_to_articleFragment"
-            app:destination="@id/articleFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-    </fragment>
-    <fragment
         android:id="@+id/searchNewsFragment"
-        android:name="com.jojoe.mynews.ui.fragments.SearchNewsFragment"
+        android:name="com.jojoe.mynews.ui.fragments.search.SearchNewsFragment"
         android:label="Search" >
         <action
             android:id="@+id/action_searchNewsFragment2_to_articleFragment"
@@ -47,5 +24,43 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/homeNewsFragment"
+        android:name="com.jojoe.mynews.ui.fragments.home.HomeNewsFragment"
+        android:label="HomeNewsFragment" >
+        <action
+            android:id="@+id/action_homeNewsFragment_to_articleFragment"
+            app:destination="@id/articleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/savedNewsFragment"
+        android:name="com.jojoe.mynews.ui.fragments.saved.SavedNewsFragment"
+        android:label="SavedNewsFragment" >
+        <action
+            android:id="@+id/action_savedNewsFragment_to_articleFragment"
+            app:destination="@id/articleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.jojoe.mynews.ui.fragments.account.SignInFragment"
+        android:label="Sign In" >
+        <action
+            android:id="@+id/action_signInFragment_to_homeNewsFragment"
+            app:destination="@id/homeNewsFragment" />
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.jojoe.mynews.ui.fragments.account.SignUpFragment"
+        android:label="Sign Up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_homeNewsFragment"
+            app:destination="@id/homeNewsFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
     </fragment>
 </navigation>

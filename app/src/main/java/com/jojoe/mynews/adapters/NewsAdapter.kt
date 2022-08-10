@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.jojoe.mynews.databinding.ItemArticlePreviewBinding
 import com.jojoe.mynews.model.Article
 
-class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
+class NewsAdapter() : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
     inner class ArticleViewHolder(val binding: ItemArticlePreviewBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -44,8 +44,11 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
         holder.binding.apply {
             Glide.with(ivArticleImage).load(article.urlToImage).into(ivArticleImage)
             tvTitle.text = article.title
-            tvDescription.text = article.description
             tvPublishedAt.text = article.publishedAt
+
+            ivSave.setOnClickListener{
+
+            }
             root.setOnClickListener{
                 onItemClickListener?.let { it -> it(article) }
             }
@@ -57,3 +60,4 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
     }
 
 }
+

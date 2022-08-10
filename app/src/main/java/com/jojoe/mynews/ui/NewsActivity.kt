@@ -2,6 +2,7 @@ package com.jojoe.mynews.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -11,8 +12,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.jojoe.mynews.MyNewsApp
 import com.jojoe.mynews.R
 import com.jojoe.mynews.databinding.ActivityNewsBinding
-import com.jojoe.mynews.db.ArticleDatabase
-import com.jojoe.mynews.repository.NewsRepository
 
 class NewsActivity : AppCompatActivity() {
 
@@ -29,11 +28,15 @@ class NewsActivity : AppCompatActivity() {
 
         val navHostFrag = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navHostFrag.navController.apply {
+            addOnDestinationChangedListener{
+                _,listner,_->binding.bottomNavigationView.isVisible=listner.id !in listOf(R.id.signInFragment,R.id.signUpFragment)
+
+            }
             binding.bottomNavigationView.setupWithNavController(this)
         }
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.breakingNewsFragment, R.id.savedNewsFragment, R.id.searchNewsFragment
+                R.id.homeNewsFragment, R.id.savedNewsFragment, R.id.searchNewsFragment,R.id.signUpFragment,R.id.signInFragment
             )
         )
         setupActionBarWithNavController(navHostFrag.navController, appBarConfiguration)

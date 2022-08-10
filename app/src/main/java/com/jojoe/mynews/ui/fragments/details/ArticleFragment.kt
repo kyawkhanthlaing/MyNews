@@ -1,17 +1,14 @@
-package com.jojoe.mynews.ui.fragments
+package com.jojoe.mynews.ui.fragments.details
 
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.NavigationUI
 import com.google.android.material.snackbar.Snackbar
 import com.jojoe.mynews.R
 import com.jojoe.mynews.databinding.FragmentArticleBinding

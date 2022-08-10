@@ -1,4 +1,4 @@
-package com.jojoe.mynews.ui.fragments
+package com.jojoe.mynews.ui.fragments.saved
 
 import android.os.Bundle
 import android.view.View
@@ -8,11 +8,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SnapHelper
 import com.google.android.material.snackbar.Snackbar
 import com.jojoe.mynews.R
 import com.jojoe.mynews.adapters.NewsAdapter
-import com.jojoe.mynews.databinding.FragmentArticleBinding
 import com.jojoe.mynews.databinding.FragmentSavedNewsBinding
 import com.jojoe.mynews.ui.NewsActivity
 import com.jojoe.mynews.ui.NewsViewModel
@@ -34,7 +32,7 @@ class SavedNewsFragment:Fragment(R.layout.fragment_saved_news) {
                 putSerializable("article",it)
             }
             findNavController().navigate(
-                R.id.action_savedNewsFragment2_to_articleFragment,
+                R.id.action_savedNewsFragment_to_articleFragment,
                 bundle
             )
         }

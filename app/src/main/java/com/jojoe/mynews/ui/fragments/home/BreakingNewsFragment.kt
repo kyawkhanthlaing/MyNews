@@ -1,4 +1,4 @@
-package com.jojoe.mynews.ui.fragments
+package com.jojoe.mynews.ui.fragments.home
 
 import android.os.Bundle
 import android.util.Log
@@ -7,36 +7,43 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.jojoe.mynews.R
 import com.jojoe.mynews.adapters.NewsAdapter
-import com.jojoe.mynews.databinding.FragmentBreakingNewsBinding
+import com.jojoe.mynews.databinding.FragmentHomeNewsBinding
 import com.jojoe.mynews.ui.NewsActivity
 import com.jojoe.mynews.ui.NewsViewModel
 import com.jojoe.mynews.util.Resource
 
 
-class BreakingNewsFragment:Fragment(R.layout.fragment_breaking_news) {
-    private lateinit var binding: FragmentBreakingNewsBinding
+class BreakingNewsFragment:Fragment(R.layout.fragment_home_news) {
+    private lateinit var binding: FragmentHomeNewsBinding
     lateinit var viewModel:NewsViewModel
     lateinit var newsAdapter: NewsAdapter
+    lateinit var onSaveClicked:()->Unit
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding= FragmentBreakingNewsBinding.bind(view)
+        binding= FragmentHomeNewsBinding.bind(view)
 
         viewModel=(activity as NewsActivity).viewModel
-        setupRecyclerView()
+
+        onSaveClicked={
+           // viewModel.saveArticle(article)
+            Snackbar.make(view,"Saved successfully", Snackbar.LENGTH_SHORT).show()
+        }
+        setupNewsRecyclerView()
 
         newsAdapter.setOnItemClickListener {
-            Log.d("article", "onViewCreated: $it")
             val bundle=Bundle().apply {
                 putSerializable("article",it)
             }
 
             findNavController().navigate(
-                BreakingNewsFragmentDirections.actionBreakingNewsFragment2ToArticleFragment(it)
+                HomeNewsFragmentDirections.actionHomeNewsFragmentToArticleFragment(it)
             )
         }
+
         viewModel.breakingNews.observe(viewLifecycleOwner, Observer {response->
             when(response){
                 is Resource.Success->{
@@ -44,14 +51,10 @@ class BreakingNewsFragment:Fragment(R.layout.fragment_breaking_news) {
 
                     response.data?.let {newsResponse ->
                         newsAdapter.differ.submitList(newsResponse.articles)
-                        newsResponse.articles.onEachIndexed {i,v->
-                            Log.d("success", "onViewCreated: $i ${newsResponse.articles}")
-                        }
                     }
                 }
                 is Resource.Error->{
                     showProgressBar()
-                    Log.d("success", "onViewCreated: error")
                     response.message?.let {message->
                         Log.e("Breaking News","An error occured:$message")
                     }
@@ -73,11 +76,14 @@ class BreakingNewsFragment:Fragment(R.layout.fragment_breaking_news) {
         binding.paginationProgressBar.visibility=View.VISIBLE
     }
 
-    private fun setupRecyclerView(){
+    private fun setupNewsRecyclerView(){
         newsAdapter= NewsAdapter()
         binding.rvBreakingNews.apply {
             adapter=newsAdapter
             layoutManager=LinearLayoutManager(activity)
         }
     }
+
+
+
 }

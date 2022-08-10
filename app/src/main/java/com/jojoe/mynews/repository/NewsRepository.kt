@@ -9,11 +9,11 @@ class NewsRepository(
     private val db: ArticleDatabase,
     private val api: NewsAPI
 ) {
-    suspend fun getBreakingNews(countryCode: String, pageNumber: Int)=
-        api.getBreakingNews(countryCode, pageNumber)
+    suspend fun getBreakingNews(countryCode: String,category:String)=
+        api.getBreakingNews(countryCode, category)
 
-    suspend fun searchNews(searchQuery:String,pageNumber: Int)=
-        api.searchForNews(searchQuery, pageNumber)
+    suspend fun searchNews(searchQuery:String)=
+        api.searchForNews(searchQuery)
 
     suspend fun upsert(article: Article)=db.getArticleDao().upsert(article)
 

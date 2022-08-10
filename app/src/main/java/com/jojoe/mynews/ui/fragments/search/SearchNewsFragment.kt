@@ -1,4 +1,4 @@
-package com.jojoe.mynews.ui.fragments
+package com.jojoe.mynews.ui.fragments.search
 
 import android.os.Bundle
 import android.util.Log
