@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "58455274834",
+    "project_id": "mynews-a9a95",
+    "storage_bucket": "mynews-a9a95.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:58455274834:android:cd88b87a13a8458cf2f68b",
+        "android_client_info": {
+          "package_name": "com.jojoe.mynews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "58455274834-5qn41p9ebkg3839tiecvj18ov41mt1ul.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGi25YVbuEcZSmFG9tgIzZYS5MQpmONaU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "58455274834-5qn41p9ebkg3839tiecvj18ov41mt1ul.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

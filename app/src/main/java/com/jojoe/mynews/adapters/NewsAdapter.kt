@@ -1,5 +1,7 @@
 package com.jojoe.mynews.adapters
 
+import android.graphics.Color
+import android.graphics.ColorFilter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -9,7 +11,9 @@ import com.bumptech.glide.Glide
 import com.jojoe.mynews.databinding.ItemArticlePreviewBinding
 import com.jojoe.mynews.model.Article
 
-class NewsAdapter() : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
+class NewsAdapter(
+    val onClicked:(Article)->Unit
+) : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
     inner class ArticleViewHolder(val binding: ItemArticlePreviewBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -45,9 +49,10 @@ class NewsAdapter() : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
             Glide.with(ivArticleImage).load(article.urlToImage).into(ivArticleImage)
             tvTitle.text = article.title
             tvPublishedAt.text = article.publishedAt
-
+            ivSave.setColorFilter(Color.BLACK)
             ivSave.setOnClickListener{
-
+                onClicked(article)
+                ivSave.setColorFilter(Color.RED)
             }
             root.setOnClickListener{
                 onItemClickListener?.let { it -> it(article) }

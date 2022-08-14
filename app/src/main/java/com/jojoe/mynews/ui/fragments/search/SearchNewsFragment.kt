@@ -3,6 +3,7 @@ package com.jojoe.mynews.ui.fragments.search
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.SearchView
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -42,17 +43,31 @@ class SearchNewsFragment:Fragment(R.layout.fragment_search_news) {
         }
 
         var job: Job?=null
-        binding.etSearch.addTextChangedListener {editable->
-            job?.cancel()
-            job = MainScope().launch {
-                delay(300L)
-                editable?.let {
-                    if(editable.toString().isNotEmpty()){
-                        viewModel.searchNews(editable.toString())
-                    }
+
+        binding.searchView.apply {
+            clearFocus()
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+                androidx.appcompat.widget.SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
                 }
-            }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    job?.cancel()
+                    job = MainScope().launch {
+                        delay(300L)
+                         newText?.let {
+                            if(newText.isNotEmpty()){
+                                viewModel.searchNews(newText.toString())
+                            }
+                        }
+                    }
+                    return true
+                }
+
+            })
         }
+//
         viewModel.searchNews.observe(viewLifecycleOwner, Observer {response->
             when(response){
                 is Resource.Success->{
@@ -82,7 +97,9 @@ class SearchNewsFragment:Fragment(R.layout.fragment_search_news) {
     }
 
     private fun setupRecyclerView(){
-        newsAdapter= NewsAdapter()
+        newsAdapter= NewsAdapter(){
+            viewModel.saveArticle(it)
+        }
         binding.rvSearchNews.apply {
             adapter=newsAdapter
             layoutManager= LinearLayoutManager(activity)

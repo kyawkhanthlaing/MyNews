@@ -7,31 +7,59 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayout
 import com.jojoe.mynews.R
 import com.jojoe.mynews.adapters.NewsAdapter
-import com.jojoe.mynews.databinding.FragmentHomeNewsBinding
+import com.jojoe.mynews.databinding.FragmentHomeBinding
 import com.jojoe.mynews.ui.NewsActivity
 import com.jojoe.mynews.ui.NewsViewModel
 import com.jojoe.mynews.util.Resource
 
 
-class BreakingNewsFragment:Fragment(R.layout.fragment_home_news) {
-    private lateinit var binding: FragmentHomeNewsBinding
-    lateinit var viewModel:NewsViewModel
+class HomeNewsFragment : Fragment(R.layout.fragment_home) {
+    private lateinit var binding: FragmentHomeBinding
+
+    lateinit var viewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
-    lateinit var onSaveClicked:()->Unit
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding= FragmentHomeNewsBinding.bind(view)
+        binding = FragmentHomeBinding.bind(view)
 
-        viewModel=(activity as NewsActivity).viewModel
+        viewModel = (activity as NewsActivity).viewModel
 
-        onSaveClicked={
-           // viewModel.saveArticle(article)
-            Snackbar.make(view,"Saved successfully", Snackbar.LENGTH_SHORT).show()
-        }
+        binding.tapLayout.addTab(binding.tapLayout.newTab().setText("Breaking News"))
+        binding.tapLayout.addTab(binding.tapLayout.newTab().setText("Business"))
+        binding.tapLayout.addTab(binding.tapLayout.newTab().setText("Entertainment"))
+        binding.tapLayout.addTab(binding.tapLayout.newTab().setText("Health"))
+        binding.tapLayout.addTab(binding.tapLayout.newTab().setText("Science"))
+        binding.tapLayout.addTab(binding.tapLayout.newTab().setText("Sports"))
+        binding.tapLayout.addTab(binding.tapLayout.newTab().setText("Technology"))
+
+        binding.tapLayout.addOnTabSelectedListener(object :TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                if (tab != null) {
+                    when(tab.text){
+                        "Breaking News"->{viewModel.getNews(category = "general")}
+                        "Business"->{viewModel.getNews(category = "business")}
+                        "Entertainment"->{viewModel.getNews(category = "entertainment")}
+                        "Health"->{viewModel.getNews(category = "health")}
+                        "Science"->{viewModel.getNews(category = "science")}
+                        "Sports"->{viewModel.getNews(category = "sports")}
+                        "Technology"->{viewModel.getNews(category = "technology")}
+                    }
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+
+            }
+        })
+
         setupNewsRecyclerView()
 
         newsAdapter.setOnItemClickListener {
@@ -67,8 +95,9 @@ class BreakingNewsFragment:Fragment(R.layout.fragment_home_news) {
 
         })
 
-    }
 
+
+    }
     private fun hideProgressBar() {
         binding.paginationProgressBar.visibility=View.INVISIBLE
     }
@@ -77,13 +106,13 @@ class BreakingNewsFragment:Fragment(R.layout.fragment_home_news) {
     }
 
     private fun setupNewsRecyclerView(){
-        newsAdapter= NewsAdapter()
+        newsAdapter= NewsAdapter(){
+            viewModel.saveArticle(it)
+
+        }
         binding.rvBreakingNews.apply {
             adapter=newsAdapter
-            layoutManager=LinearLayoutManager(activity)
+            layoutManager= LinearLayoutManager(activity)
         }
     }
-
-
-
 }

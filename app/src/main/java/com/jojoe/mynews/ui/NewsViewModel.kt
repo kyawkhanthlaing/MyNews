@@ -1,6 +1,6 @@
 package com.jojoe.mynews.ui
 
-import android.util.Log
+
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,15 +18,13 @@ class NewsViewModel(
 
     val searchNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
 
-//
-//    init {
-//        getBreakingNews("us","general")
-//    }
+    init {
+        getNews(category = "general")
+    }
 
-    fun getBreakingNews(countryCode:String="us",category:String)=viewModelScope.launch {
-        Log.d("gbn", "getBreakingNews: hello")
+    fun getNews(country:String="us",category:String)=viewModelScope.launch {
         breakingNews.postValue(Resource.Loading())
-        val response=newsRepository.getBreakingNews(countryCode,category)
+        val response=newsRepository.getNews(country, category)
         breakingNews.postValue(handleBreakingNewsResponse(response))
     }
     fun searchNews(searchQuery:String)=viewModelScope.launch {

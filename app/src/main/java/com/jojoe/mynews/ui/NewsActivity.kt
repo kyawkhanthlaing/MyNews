@@ -36,7 +36,7 @@ class NewsActivity : AppCompatActivity() {
         }
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeNewsFragment, R.id.savedNewsFragment, R.id.searchNewsFragment,R.id.signUpFragment,R.id.signInFragment
+                R.id.homeNewsFragment, R.id.settingsFragment, R.id.searchNewsFragment,R.id.signUpFragment,R.id.signInFragment
             )
         )
         setupActionBarWithNavController(navHostFrag.navController, appBarConfiguration)

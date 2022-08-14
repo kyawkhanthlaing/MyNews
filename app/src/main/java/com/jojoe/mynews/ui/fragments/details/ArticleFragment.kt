@@ -51,11 +51,7 @@ class ArticleFragment:Fragment(R.layout.fragment_article) {
             loadUrl(article.url)
         }
 
-        binding.fab.setOnClickListener{
-            viewModel.saveArticle(article)
-            Snackbar.make(view,"Saved successfully",Snackbar.LENGTH_SHORT).show()
 
-        }
     }
 
     private fun hideProgressBar() {

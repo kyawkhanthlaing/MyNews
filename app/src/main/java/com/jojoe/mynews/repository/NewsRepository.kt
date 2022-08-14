@@ -9,8 +9,8 @@ class NewsRepository(
     private val db: ArticleDatabase,
     private val api: NewsAPI
 ) {
-    suspend fun getBreakingNews(countryCode: String,category:String)=
-        api.getBreakingNews(countryCode, category)
+    suspend fun getNews(country:String,category:String)=
+        api.getNews(country,category)
 
     suspend fun searchNews(searchQuery:String)=
         api.searchForNews(searchQuery)

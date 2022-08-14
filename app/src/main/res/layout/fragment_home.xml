@@ -3,7 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tapLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabMode="scrollable"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -16,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tapLayout"
         app:layout_constraintVertical_bias="0.0" />
 
     <ProgressBar
@@ -33,6 +43,8 @@
         app:layout_constraintEnd_toEndOf="@id/rvBreakingNews"
         app:layout_constraintStart_toStartOf="@+id/rvBreakingNews"
         app:layout_constraintTop_toTopOf="@+id/rvBreakingNews" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
